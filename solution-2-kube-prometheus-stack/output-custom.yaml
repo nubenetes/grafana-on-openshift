@@ -1,0 +1,37 @@
+USER-SUPPLIED VALUES:
+grafana:
+  grafana:
+    ini:
+      auth:
+        azuread:
+          allow_assign_grafana_admin: '"true"'
+          allow_sign_up: '"true"'
+          allowed_organizations: <AZURE_TENANT_ID>
+          api_url: https://graph.microsoft.com
+          auth_url: https://login.microsoftonline.com/<AZURE_TENANT_ID>/oauth2/v2.0/authorize
+          auto_login: '"false"'
+          client_id: 00000000-0000-0000-0000-000000000000
+          client_secret: K828Q~xlanEyGW2ZkIic6i-C9xLQDycARD~RAbaM
+          enabled: '"true"'
+          name: Example AAD
+          role_attribute_strict: '"false"'
+          scopes: openid profile email
+          skip_org_role_sync: '"false"'
+          token_url: https://login.microsoftonline.com/<AZURE_TENANT_ID>/oauth2/v2.0/token
+          use_pkce: '"true"'
+      server:
+        root_url: grafana-kubeprometheus.apps.cluster.example.com
+  ingress:
+    enabled: '"true"'
+    hosts:
+    - grafana-kubeprometheus.apps.cluster.example.com
+    ingressClassName: openshift-dev-ingress
+kubeStateMetrics:
+  enabled: false
+nodeExporter:
+  enabled: false
+nodeSelector:
+- node-role.kubernetes.io/infra
+persistence:
+  enabled: true
+  storageClassName: “ontap-nas”

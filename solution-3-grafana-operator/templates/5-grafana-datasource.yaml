@@ -1,0 +1,97 @@
+# https://grafana.github.io/grafana-operator/docs/examples/datasource_mapping/readme/
+# https://www.redhat.com/en/blog/thanos-querier-versus-thanos-querier
+# https://cloud.redhat.com/experts/o11y/ocp-grafana/
+# https://grafana.github.io/grafana-operator/docs/datasources/
+# https://grafana.com/grafana/plugins/
+# https://grafana.github.io/grafana-operator/docs/examples/datasource_variables/readme/
+# https://luandy-4171.medium.com/kubernetes-new-service-account-tokens-25adf0d9c164
+###########################################################################################
+# Equivale a:
+# oc adm policy add-cluster-role-to-user cluster-monitoring-view -z grafana-instance-sa
+# oc adm policy remove-cluster-role-from-user cluster-monitoring-view -z grafana-instance-sa
+###########################################################################################
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: prometheus-token
+#   namespace: grafana-operator
+#   annotations:
+#     kubernetes.io/service-account.name: "grafana-instance-sa"
+# type: kubernetes.io/service-account-token
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus-grafanadatasource
+  namespace: grafana-operator
+spec:
+  # valuesFrom:
+  #   - targetPath: "secureJsonData.httpHeaderValue1"
+  #     valueFrom:
+  #       secretKeyRef:
+  #         name: "prometheus-token"
+  #         key: "token"
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  datasource:
+    name: prometheus-grafanadatasource
+    type: prometheus
+    uid: prometheus-grafanadatasource
+    access: proxy
+    url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
+    isDefault: true
+    secureJsonData:
+      #httpHeaderValue1: 'Bearer ${token}'
+      httpHeaderValue1: 'Bearer ${BEARER_TOKEN}'
+    jsonData:
+      httpHeaderName1: Authorization
+      'tlsSkipVerify': true
+      'timeInterval': "5s"
+    editable: true
+  plugins: # https://grafana.github.io/grafana-operator/docs/datasources/
+    - name: grafana-clock-panel # https://grafana.com/grafana/plugins/grafana-clock-panel/
+      version: 2.1.5
+    - name: grafana-datadog-datasource # https://grafana.com/grafana/plugins/grafana-datadog-datasource/
+      version: 3.7.2
+    - name: grafana-gitlab-datasource # https://grafana.com/grafana/plugins/grafana-gitlab-datasource/
+      version: 1.8.1
+    - name: grafana-jira-datasource # https://grafana.com/grafana/plugins/grafana-jira-datasource/
+      version: 1.9.4
+    - name: marcusolsson-csv-datasource # https://grafana.com/grafana/plugins/marcusolsson-csv-datasource/
+      version: 0.6.17
+    - name: grafana-llm-app # https://grafana.com/grafana/plugins/grafana-llm-app/
+      version: 0.10.4
+---
+# https://grafana.com/docs/grafana/latest/datasources/elasticsearch/
+# https://community.grafana.com/t/elasticsearch-datasource-through-yaml-in-grafana/79393
+# http://elasticsearch.openshift-logging.svc.cluster.local:9200
+# http://elasticsearch-cluster.openshift-logging.svc.cluster.local:9300
+# apiVersion: grafana.integreatly.org/v1beta1
+# kind: GrafanaDatasource
+# metadata:
+#   name: prometheus-grafanadatasource
+#   namespace: grafana-operator
+# spec:
+#   datasource:
+#     name: Elasticsearch
+#     type: elasticsearch
+#     access: proxy
+#     url: http://elasticsearch.openshift-logging.svc.cluster.local:9200
+#     # basicAuth: true
+#     # basicAuthUser: <user>
+#     # database: <index name>
+#     isDefault: false
+#     jsonData:
+#       index: '[metrics-]YYYY.MM.DD'
+#       interval: Daily
+#       timeField: '@timestamp'
+#       # esVersion: 7.10.0
+#       # logMessageField: full_message
+#       # timeField: "@timestamp"
+#       # timeout: 300
+#       # tlsSkipVerify: true
+#       # maxConcurrentShardRequests: 10
+#     # secureJsonData:
+#     #   basicAuthPassword: <password>

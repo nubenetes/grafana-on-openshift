@@ -1,0 +1,64 @@
+---
+# https://grafana.github.io/grafana-operator/docs/examples/dashboard_with_custom_folder/readme/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: grafanadashboard-with-custom-folder
+  namespace: grafana-operator
+spec:
+  folder: "example"
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  url: "https://raw.githubusercontent.com/grafana-operator/grafana-operator/master/examples/dashboard_from_url/dashboard.json"
+---
+# https://grafana.github.io/grafana-operator/docs/examples/dashboard_from_configmap/readme/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboard-definition
+data:
+  json: >
+    {
+      "id": null,
+      "title": "Simple Dashboard from ConfigMap",
+      "tags": [],
+      "style": "dark",
+      "timezone": "browser",
+      "editable": true,
+      "hideControls": false,
+      "graphTooltip": 1,
+      "panels": [],
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "timepicker": {
+        "time_options": [],
+        "refresh_intervals": []
+      },
+      "templating": {
+        "list": []
+      },
+      "annotations": {
+        "list": []
+      },
+      "refresh": "5s",
+      "schemaVersion": 17,
+      "version": 0,
+      "links": []
+    }    
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: grafanadashboard-from-configmap
+  namespace: grafana-operator
+spec:
+  folder: "example"
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  configMapRef:
+    name: dashboard-definition
+    key: json

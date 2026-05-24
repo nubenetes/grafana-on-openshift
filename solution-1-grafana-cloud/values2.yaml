@@ -1,0 +1,135 @@
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/examples/openshift-compatible
+cluster:
+  name: noprod
+  platform: openshift
+
+externalServices:
+  prometheus:
+    host: https://prometheus-prod-24-prod-eu-west-2.grafana.net
+    basicAuth:
+      username: "1523855"
+      password: "It's a secret to everyone"
+
+  loki:
+    host: https://logs-prod-012.grafana.net
+    basicAuth:
+      username: "862601"
+      password: "It's a secret to everyone"
+
+metrics:
+  kube-state-metrics:
+    service:
+      port: https-main
+      isTLS: true
+
+  node-exporter:
+    labelMatchers:
+      app.kubernetes.io/name: node-exporter
+    service:
+      isTLS: true
+
+kube-state-metrics:
+  enabled: false
+
+prometheus-node-exporter:
+  enabled: false
+
+prometheus-operator-crds:
+  enabled: false
+
+# Settings for the Grafana Alloy instance that gathers metrics, and opens receivers for application data.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+# @ignored -- This skips including these values in README.md
+alloy:
+  alloy:
+    #listenPort: 8080
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: [ "ALL" ]
+        add:
+          - CHOWN
+          - DAC_OVERRIDE
+          - FOWNER
+          - FSETID
+          - KILL
+          - SETGID
+          - SETUID
+          - SETPCAP
+          - NET_BIND_SERVICE
+          - NET_RAW
+          - SYS_CHROOT
+          - MKNOD
+          - AUDIT_WRITE
+          - SETFCAP
+      #runAsNonRoot: true
+      seccompProfile:
+        type: "RuntimeDefault"
+  # serviceAccount:
+  #   annotations: # Annotations to add to the created service account.
+  # controller: # Extra pod annotations to add.
+  #   podAnnotations:
+  #     openshift.io/scc: grafana-k8s-monitoring-alloy
+  # global:
+  #   podSecurityContext:
+  #     seLinuxOptions:
+  #       type: spc_t
+# Settings for the Grafana Alloy instance that gathers pod logs.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+# @ignored -- This skips including these values in README.md
+alloy-logs:
+  alloy:
+    #listenPort: 8080
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: [ "ALL" ]
+        add:
+          - CHOWN
+          - DAC_OVERRIDE
+          - FOWNER
+          - FSETID
+          - KILL
+          - SETGID
+          - SETUID
+          - SETPCAP
+          - NET_BIND_SERVICE
+          - NET_RAW
+          - SYS_CHROOT
+          - MKNOD
+          - AUDIT_WRITE
+          - SETFCAP
+      privileged: false
+      runAsUser: 0
+  global:
+    podSecurityContext:
+      seLinuxOptions:
+        type: spc_t
+# Settings for the Grafana Alloy instance that gathers Cluster events.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+# @ignored -- This skips including these values in README.md
+alloy-events:
+  alloy:
+    #listenPort: 8080
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: [ "ALL" ]
+        add:
+          - CHOWN
+          - DAC_OVERRIDE
+          - FOWNER
+          - FSETID
+          - KILL
+          - SETGID
+          - SETUID
+          - SETPCAP
+          - NET_BIND_SERVICE
+          - NET_RAW
+          - SYS_CHROOT
+          - MKNOD
+          - AUDIT_WRITE
+          - SETFCAP
+      #runAsNonRoot: true
+      seccompProfile:
+        type: "RuntimeDefault"

@@ -1,0 +1,286 @@
+# https://grafana.github.io/grafana-operator/docs/examples/oauth_proxy/readme/
+# https://cloud.redhat.com/experts/o11y/ocp-grafana/
+# https://blog.devops.dev/installing-and-configuring-grafana-in-openshift-4-12-f6d725970d65
+####################################################################################
+# Grafana 9.0.0 403 forbidden when accessing provisoned prometheus datasource
+# Ensure that bearer token is correct and there are no WAF/networking issues.
+# https://github.com/grafana/grafana/issues/59622
+# https://github.com/grafana/grafana/issues/51163
+####################################################################################
+# https://grafana.com/blog/2024/04/24/how-to-use-the-grafana-operator-managing-a-grafana-cloud-stack-in-kubernetes/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    config.openshift.io/inject-trusted-cabundle: "true"
+  name: ocp-injected-certs
+  namespace: grafana-operator
+---
+apiVersion: v1
+data:
+  session_secret: Y2hhbmdlIG1lCg==
+kind: Secret
+metadata:
+  name: grafana-proxy
+  namespace: grafana-operator
+type: Opaque
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: grafana-proxy
+  namespace: grafana-operator
+rules:
+- verbs:
+  - create
+  apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+- verbs:
+  - create
+  apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+---
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRoleBinding
+metadata:
+  namespace: grafana-operator
+  name: grafana-proxy
+roleRef:
+  kind: ClusterRole
+  name: grafana-proxy
+subjects:
+- kind: ServiceAccount
+  name: grafana-instance-sa
+  namespace: grafana-operator
+---
+# https://grafana.com/docs/grafana-cloud/developer-resources/infrastructure-as-code/grafana-operator/operator-dashboards-folders-datasources/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: grafana-instance
+  namespace: grafana-operator
+  labels:
+    dashboards: "grafana-dashboards"
+    #folders: ""
+spec:
+  serviceAccount:
+    metadata:
+      annotations:
+        serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana-instance-route"}}'
+  route:
+    spec:
+      port:
+        targetPort: https
+      tls:
+        termination: reencrypt
+      to:
+        kind: Service
+        name: grafana-instance-service
+        weight: 100
+      wildcardPolicy: None
+  deployment:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: grafana-tls
+            secret:
+              secretName: grafana-tls
+          - name: grafana-proxy
+            secret:
+              secretName: grafana-proxy
+          - name: ocp-injected-certs
+            configMap:
+              name: ocp-injected-certs
+          client:
+            preferService: true
+          dataStorage:
+            accessModes:
+            - ReadWriteOnce
+            class: ontap-nas
+            size: 1Gi
+          containers:
+          - name: grafana
+            image: grafana/grafana:11.0.0 #grafana/grafana:10.4.2 #grafana/grafana:latest
+            env: # https://grafana.github.io/grafana-operator/docs/examples/grafana_google_sso/readme/
+            - name: GF_AUTH_AZUREAD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-oauth
+                  key: GF_AUTH_AZUREAD_CLIENT_SECRET
+          - name: grafana-proxy
+            image: 'quay.io/openshift/origin-oauth-proxy'
+            args:
+            - '-provider=openshift'
+            - '-pass-basic-auth=false'
+            - '-https-address=:9091'
+            - '-http-address='
+            - '-email-domain=*'
+            - '-upstream=http://localhost:3000'
+            - '-openshift-sar={"namespace": "grafana-operator", "resource": "services","verb": "get"}'
+            - '-openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}'
+            - '-tls-cert=/etc/tls/private/tls.crt'
+            - '-tls-key=/etc/tls/private/tls.key'
+            - '-client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token'
+            - '-cookie-secret-file=/etc/proxy/secrets/session_secret'
+            - '-openshift-service-account=grafana-instance-sa'
+            - '-openshift-ca=/etc/pki/tls/cert.pem'
+            - '-openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'
+            - '-openshift-ca=/etc/proxy/certs/ca-bundle.crt'
+            - '-skip-auth-regex=^/metrics'
+            ports:
+            - containerPort: 9091
+              name: https
+            resources: {}
+            volumeMounts:
+            - mountPath: /etc/tls/private
+              name: grafana-tls
+              readOnly: false
+            - mountPath: /etc/proxy/secrets
+              name: grafana-proxy
+              readOnly: false
+            - mountPath: /etc/proxy/certs
+              name: ocp-injected-certs
+              readOnly: false
+  service:
+    metadata:
+      annotations:
+        service.beta.openshift.io/serving-cert-secret-name: grafana-tls
+    spec:
+      ports:
+      - name: https
+        port: 9091
+        protocol: TCP
+        targetPort: https
+  client:
+    preferIngress: false
+  config:
+    server:
+      root_url: "https://grafana-instance-route-grafana-operator.apps.cluster.example.com/"
+    log:
+      mode: "console"
+      level: "debug"
+    auth.anonymous:
+      enabled: "True"
+    auth:
+      disable_login_form: "True"
+      disable_signout_menu: "False"
+    auth.azuread:
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/azuread/
+      enabled: "true"
+      allow_sign_up: "true"
+      auto_login: "False"
+      role_attribute_strict: "True"
+      allow_assign_grafana_admin: "False"
+      skip_org_role_sync: "False"
+      use_pkce: "true"
+      scopes: "openid profile email"
+      auth_url: "https://login.microsoftonline.com/<AZURE_TENANT_ID>/oauth2/v2.0/authorize"
+      token_url: "https://login.microsoftonline.com/<AZURE_TENANT_ID>/oauth2/v2.0/token"
+      api_url: "https://graph.microsoft.com"
+      name: "Example AAD"
+      client_id: 00000000-0000-0000-0000-000000000000
+      allowed_organizations: "<AZURE_TENANT_ID>"
+      allowed_domains: "example.com"
+      #allowed_groups:
+    # auth.basic:
+    #   enabled: "True"
+    # auth.proxy:
+    #   enabled: "True"
+    #   enable_login_token: "True"
+    #   header_property: "username"
+    #   header_name: "X-Forwarded-User"
+    security: # https://grafana.github.io/grafana-operator/docs/examples/credential_config/readme/
+      # https://github.com/grafana/grafana-operator/blob/master/docs/docs/grafana.md
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/
+      disable_initial_admin_creation: 'False' # Pierdo los dashboards si lo pongo a true
+      #admin_user: admin
+      # admin_password: admin
+      #admin_email: user@example.com
+      cookie_secure: 'true' # Set to true if you host Grafana behind HTTPS. Default is false.      
+    users: # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/
+      #   auto_sign_up: "false"
+      #auto_assign_org_role: Viewer # The available options are Viewer (default), Admin, Editor, and None
+      #   verify_email_enabled: "false"
+      #   default_theme: dark # dark, light, or system. The default theme is dark. system matches the user’s system theme.
+      default_language: "es-ES"
+      viewers_can_edit: "true" # https://grafana.com/docs/grafana/latest/administration/user-management/manage-dashboard-permissions/
+    #   editors_can_admin: "false"
+    dashboards:
+      min_refresh_interval: 5s
+    public_dashboards:
+      enabled: 'true'
+      # rbac:
+      #   # https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/
+      #   # https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/assign-rbac-roles/
+      #   apiVersion: '2'
+      #   # Assignments to teams
+---
+# https://grafana.github.io/grafana-operator/docs/folder/
+# https://grafana.com/docs/grafana/v8.4/http_api/folder_permissions/#update-permissions-for-a-folder
+# https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/
+#   The permission levels for the permission field:
+#   1 = View
+#   2 = Edit
+#   4 = Admin
+# When permissions value is empty/absent, a folder is created with default permissions
+# When empty JSON is passed ("{}"), the access is stripped for everyone except for Admin (default Grafana behaviour)
+kind: GrafanaFolder
+apiVersion: grafana.integreatly.org/v1beta1
+metadata:
+  name: grafanafolder
+  namespace: grafana-operator
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  title: grafana.com
+  permissions: |
+    {
+      "items": [
+        {
+        "role": "Admin",
+        "permission": 4
+        },
+        {
+        "role": "Editor",
+        "permission": 1
+        },
+        {
+        "role": "Viewer",
+        "permission": 1
+        }
+      ]
+    }
+---
+kind: GrafanaFolder
+apiVersion: grafana.integreatly.org/v1beta1
+metadata:
+  name: grafanafolder-example
+  namespace: grafana-operator
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  title: example
+  permissions: |
+    {
+      "items": [
+        {
+        "role": "Admin",
+        "permission": 4
+        },
+        {
+        "role": "Editor",
+        "permission": 2
+        },
+        {
+        "role": "Viewer",
+        "permission": 1
+        }
+      ]
+    }

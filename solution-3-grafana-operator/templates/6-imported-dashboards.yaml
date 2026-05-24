@@ -1,0 +1,347 @@
+# https://grafana.github.io/grafana-operator/docs/examples/datasource_variables/readme/
+# https://grafana.github.io/grafana-operator/docs/dashboards/
+# https://github.com/bitnami/charts/issues/24865
+---
+# https://grafana.com/grafana/dashboards/12937-thanos-overview-public/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: thanos-overview
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 12937
+---
+# https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: node-exporter-full
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 1860
+---
+# https://grafana.com/grafana/dashboards/14981-coredns/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: coredns
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources:
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 14981
+---
+# https://grafana.com/grafana/dashboards/14055-loki-stack-monitoring-promtail-loki/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: loki-stack-monitoring
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 14055
+---
+# https://grafana.com/grafana/dashboards/9578-alertmanager/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: alertmanager
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 9578
+---
+# https://grafana.com/grafana/dashboards/4701-jvm-micrometer/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: jvm-micrometer
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 4701
+---
+# https://grafana.com/grafana/dashboards/13332-kube-state-metrics-v2/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kube-state-metrics-v2
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: VAR_DATASOURCE
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 13332
+---
+# https://grafana.com/grafana/dashboards/11454-k8s-storage-volumes-cluster/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: k8s-storage-volumes-cluster
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 11454
+---
+# https://grafana.com/grafana/dashboards/315-kubernetes-cluster-monitoring-via-prometheus/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: k8s-cluster-monitoring
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 315
+---
+# https://grafana.com/grafana/dashboards/13659-blackbox-exporter-http-prober/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: blackbox-exporter
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 13659
+---
+# https://grafana.com/grafana/dashboards/11159-nodejs-application-dashboard/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: nodejs-application
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 11159
+---
+# https://grafana.com/grafana/dashboards/8171-kubernetes-nodes/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: k8s-nodes
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 8171
+---
+# https://grafana.com/grafana/dashboards/12006-kubernetes-apiserver/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: k8s-api-server
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 12006
+---
+# https://grafana.com/grafana/dashboards/15038-external-dns/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: external-dns
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 15038
+---
+# https://grafana.com/grafana/dashboards/747-pod-metrics/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: pod-metrics
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 747
+---
+# https://grafana.com/grafana/dashboards/741-deployment-metrics/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: deployment-metrics
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 741
+---
+# https://grafana.com/grafana/dashboards/1471-kubernetes-apps/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: k8s-apps
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 1471
+---
+# https://grafana.com/grafana/dashboards/266-elasticsearch/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: elasticsearch
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 266
+---
+# https://grafana.com/grafana/dashboards/10000-kubernetes-cluster-monitoring-via-prometheus/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: kubernetes-cluster-monitoring-via-prometheus
+  namespace: grafana-operator
+spec:
+  folder: grafana.com
+  datasources: # https://github.com/bitnami/charts/issues/24865
+  - datasourceName: prometheus-grafanadatasource
+    inputName: DS_PROMETHEUS
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-dashboards"
+  grafanaCom:
+    id: 10000
+---

@@ -1,0 +1,26 @@
+# https://github.com/prometheus-community/helm-charts/issues/4207
+# https://github.com/openshift/cluster-monitoring-operator/blob/master/assets/node-exporter/security-context-constraints.yaml
+#  Custom SCC should be similar to the node-exporter SCC in your cluster, i.e. node-exporter at cluster-monitoring-operator. 
+# The SCC API does not support allowedHostPaths
+allowHostDirVolumePlugin: true
+allowHostNetwork: true
+allowHostPID: true
+allowHostPorts: true
+allowPrivilegedContainer: true
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    kubernetes.io/description: node-exporter scc is used for the Prometheus node exporter
+  labels:
+    app.kubernetes.io/managed-by: cluster-monitoring-operator
+    app.kubernetes.io/part-of: openshift-monitoring
+  name: custom-
+readOnlyRootFilesystem: false
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- runtime/default
+users: []

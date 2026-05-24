@@ -1,0 +1,156 @@
+# https://github.com/grafana/agent/tree/main/operations/helm/charts/grafana-agent
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring
+# https://medium.com/@didier.wojciechowski/how-to-use-loki-from-grafana-cloud-with-openshift-network-observability-c70785187a12
+# https://www.redhat.com/en/blog/how-to-display-your-kubernetes-/-openshift-network-flows
+# https://faun.pub/integrating-openshift-with-external-grafana-1d7ee7441983
+
+# https://docs.openshift.com/container-platform/4.13/authentication/managing-security-context-constraints.html
+# runAsUser: 1000 A container or pod that requests a specific user ID will be accepted by OpenShift Container Platform only when a service account or a user is granted access to a SCC that allows such a user ID.
+# The SCC can allow arbitrary IDs, an ID that falls into a range, or the exact user ID specific to the request.
+
+# https://connect.redhat.com/en/blog/important-openshift-changes-pod-security-standards
+# https://github.com/grafana/k8s-monitoring-helm/blob/main/charts/k8s-monitoring/templates/platform_specific/openshift/security-context-constraint.yaml
+# https://github.com/grafana/k8s-monitoring-helm/tree/main/examples/openshift-compatible
+cluster:
+  name: noprod
+  platform: openshift
+externalServices:
+  prometheus:
+    host: https://prometheus-prod-24-prod-eu-west-2.grafana.net
+    basicAuth:
+      username: "1523855"
+      password: REPLACE_WITH_ACCESS_POLICY_TOKEN
+  loki:
+    host: https://logs-prod-012.grafana.net
+    basicAuth:
+      username: "862601"
+      password: REPLACE_WITH_ACCESS_POLICY_TOKEN
+  tempo:
+    host: https://tempo-prod-10-prod-eu-west-2.grafana.net:443
+    basicAuth:
+      username: "856917"
+      password: REPLACE_WITH_ACCESS_POLICY_TOKEN
+metrics:
+  enabled: true
+  cost:
+    enabled: false
+  node-exporter:
+    enabled: true
+    labelMatchers:
+      app.kubernetes.io/name: node-exporter
+    service:
+      isTLS: true
+  kube-state-metrics:
+    service:
+      port: https-main
+      isTLS: true
+  prometheus-node-exporter:
+    enabled: true
+logs:
+  enabled: true
+  pod_logs:
+    enabled: true
+  cluster_events:
+    enabled: true
+traces:
+  enabled: true
+receivers:
+  grpc:
+    enabled: true
+  http:
+    enabled: true
+  zipkin:
+    enabled: true
+opencost:
+  enabled: false
+  opencost:
+    exporter:
+      defaultClusterId: noprod
+    prometheus:
+      external:
+        url: https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom
+kube-state-metrics:
+  enabled: false
+prometheus-node-exporter:
+  enabled: false
+prometheus-operator-crds:
+  enabled: false
+alloy:
+  alloy:
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+        add:
+        - CHOWN
+        - DAC_OVERRIDE
+        - FOWNER
+        - FSETID
+        - KILL
+        - SETGID
+        - SETUID
+        - SETPCAP
+        - NET_BIND_SERVICE
+        - NET_RAW
+        - SYS_CHROOT
+        - MKNOD
+        - AUDIT_WRITE
+        - SETFCAP
+      seccompProfile:
+        type: RuntimeDefault
+alloy-logs:
+  alloy:
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+        add:
+        - CHOWN
+        - DAC_OVERRIDE
+        - FOWNER
+        - FSETID
+        - KILL
+        - SETGID
+        - SETUID
+        - SETPCAP
+        - NET_BIND_SERVICE
+        - NET_RAW
+        - SYS_CHROOT
+        - MKNOD
+        - AUDIT_WRITE
+        - SETFCAP
+      privileged: false
+      runAsUser: 0
+  global:
+    podSecurityContext:
+      seLinuxOptions:
+        type: spc_t
+# Settings for the Grafana Alloy instance that gathers Cluster events.
+# See https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy for available values.
+# @ignored -- This skips including these values in README.md
+alloy-events:
+  alloy:
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+        add:
+        - CHOWN
+        - DAC_OVERRIDE
+        - FOWNER
+        - FSETID
+        - KILL
+        - SETGID
+        - SETUID
+        - SETPCAP
+        - NET_BIND_SERVICE
+        - NET_RAW
+        - SYS_CHROOT
+        - MKNOD
+        - AUDIT_WRITE
+        - SETFCAP
+      seccompProfile:
+        type: "RuntimeDefault"

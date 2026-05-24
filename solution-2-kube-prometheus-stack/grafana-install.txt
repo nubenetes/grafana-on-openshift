@@ -1,0 +1,55 @@
+#!/bin/bash
+
+Generic values:
+helm show values kube-prometheus-stack -n kubeprometheus > output.yaml
+
+Custom values:
+helm get values kube-prometheus-stack -n kubeprometheus > output-custom.yaml
+
+
+
+https://stackoverflow.com/questions/75907730/how-to-edit-grafana-ini-in-kube-prometheus-stack
+
+https://devops.stackexchange.com/questions/17721/kube-prometheus-stack-grafana-getting-too-many-redirects-error
+
+https://community.grafana.com/t/grafana-datasource-is-not-updated-even-upon-a-deletion-of-the-grafana-pod/104541
+
+
+
+kubectl create secret tls <secret_name> --cert=<test.crt> --key=<test.key>
+grafana-general-tls
+
+
+
+[kube-prometheus-stack] unable to update the grafana.ini via values.yaml #4061
+https://github.com/prometheus-community/helm-charts/issues/4061
+
+
+
+
+Creating Ingress object does not automatically create Route
+https://access.redhat.com/solutions/6724431
+
+
+--set grafana.ingress.tls[0].secretName=grafana-general-tls \
+
+
+    ingress.kubernetes.io/ssl-redirect: "true"
+
+--set grafana.ingress.tls[0].secretName=grafana-general-tls \
+--set grafana.ingress.tls[0].hosts=grafana-kubeprometheus.apps.cluster.example.com \
+
+--set grafana.ingress.ingressClassName="openshift-default" \
+
+ingress creado:
+kube-prometheus-stack-grafana
+
+
+--set grafana.ingress.hosts="grafana-kubeprometheus" \
+
+#--set grafana.ingress.hosts="grafana-kubeprometheus.apps.cluster.example.com" \
+
+kube-prometheus-stack has been installed. Check its status by running:
+  kubectl --namespace kubeprometheus get pods -l "release=kube-prometheus-stack"
+
+Visit https://github.com/prometheus-operator/kube-prometheus for instructions on how to create & configure Alertmanager and Prometheus instances using the Operator.

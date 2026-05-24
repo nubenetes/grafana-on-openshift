@@ -1,0 +1,399 @@
+# https://grafana.github.io/grafana-operator/docs/examples/oauth_proxy/readme/
+# https://cloud.redhat.com/experts/o11y/ocp-grafana/
+# https://blog.devops.dev/installing-and-configuring-grafana-in-openshift-4-12-f6d725970d65
+# https://github.com/grafana/grafana-operator
+# https://grafana.com/docs/grafana-cloud/developer-resources/infrastructure-as-code/grafana-operator/operator-dashboards-folders-datasources/
+# https://github.com/grafana/grafana-operator/
+# https://www.redhat.com/en/blog/thanos-querier-versus-thanos-querier
+# https://grafana.com/docs/grafana/latest/setup-grafana/installation/kubernetes/
+# https://grafana.com/tutorials/provision-dashboards-and-data-sources/
+# Ask an Openshift Admin - deploy custom Grafana: https://www.youtube.com/watch?v=-MOsRxHCAD8 
+# Custom Grafana dashboards for Red Hat OpenShift Container Platform 4  https://www.redhat.com/en/blog/custom-grafana-dashboards-red-hat-openshift-container-platform-4
+# https://grafana.com/docs/grafana-cloud/developer-resources/infrastructure-as-code/grafana-operator/operator-dashboards-folders-datasources/
+
+# https://www.postgresql.fastware.com/knowledge-base/how-to/setting-up-grafana-on-ibm-linuxone
+# https://www.redhat.com/en/blog/custom-grafana-dashboards-red-hat-openshift-container-platform-4
+# https://github.com/grafana/grafana/issues/10786
+# https://github.com/grafana/grafana-operator/issues/75
+# https://github.com/grafana/grafana-operator/blob/5ebf1f965c87208ef58b7e5aeeb7765449c76952/docs/blog/v5-intro.md?plain=1#L203
+
+#################################################################
+# https://github.com/grafana/grafana-operator/issues/1188
+# [Bug] Regression - emptyDir volumes are not created 
+# One question about the proposed fix: Is there any reason behind provisioning being located in /etc/grafana and not /var/lib/grafana?
+# The operator allows to create only one PVC, and - as far as I understand the file locations correctly - it makes sense to use it for /var/lib/grafana (as the sqlite file is located there). However, I do need another (emptyDir) mount for provisioning as it is located elsewhere. To me it looks like this is more of an ephemeral directory (so emptyDir makes sense), but it would certainly make things easier if it would be located in /var/lib/grafana.
+# Is that the reason, or are there others?
+#################################################################
+# https://github.com/grafana/grafana-operator/issues/1225
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+#   name: grafana-operator
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    config.openshift.io/inject-trusted-cabundle: "true"
+  name: ocp-injected-certs
+  namespace: grafana-operator
+---
+apiVersion: v1
+data:
+  session_secret: Y2hhbmdlIG1lCg==
+kind: Secret
+metadata:
+  name: grafana-proxy
+  namespace: grafana-operator
+type: Opaque
+---
+# https://www.redhat.com/en/blog/thanos-querier-versus-thanos-querier
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: grafana-proxy
+  namespace: grafana-operator
+rules:
+- verbs:
+  - create
+  apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+- verbs:
+  - create
+  apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+---
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRoleBinding
+metadata:
+  namespace: grafana-operator
+  name: grafana-proxy
+roleRef:
+  kind: ClusterRole
+  name: grafana-proxy
+subjects:
+- kind: ServiceAccount
+  name: grafana-instance-sa
+  namespace: grafana-operator
+---
+# https://grafana.github.io/grafana-operator/docs/examples/oauth_proxy/readme/
+# https://github.com/grafana/grafana-operator/
+# https://github.com/grafana/grafana-operator/tree/master/examples
+# https://github.com/grafana/grafana-operator/blob/master/bundle/manifests/grafana-operator.clusterserviceversion.yaml
+# https://github.com/grafana/grafana-operator/blob/master/examples/oauth_proxy/resources.yaml
+# https://github.com/grafana/grafana-operator/blob/master/examples/openshift/resources.yaml
+# https://github.com/grafana/grafana-operator/blob/master/docs/docs/grafana.md
+# https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/
+
+#/usr/share/grafana/conf/defaults.ini 
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: grafana-instance
+  namespace: grafana-operator
+  labels:
+    dashboards: grafana-k8s-overview
+spec:
+  serviceAccount:
+    metadata:
+      annotations:
+        serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"grafana-instance-route"}}'
+  route:
+    spec:
+      port:
+        targetPort: https
+      tls:
+        termination: reencrypt
+      to:
+        kind: Service
+        name: grafana-instance-service
+        weight: 100
+      wildcardPolicy: None
+  persistentVolumeClaim: # https://blog.devops.dev/installing-and-configuring-grafana-in-openshift-4-12-f6d725970d65
+    # metadata:
+    #   name: grafana-pvc
+    #   namespace: grafana-operator
+    #   annotations:
+    #     # pv.kubernetes.io/bind-completed: 'yes'
+    #     # pv.kubernetes.io/bound-by-controller: 'yes'
+    #     volume.beta.kubernetes.io/storage-provisioner: csi.trident.netapp.io
+    #     volume.kubernetes.io/storage-provisioner: csi.trident.netapp.io
+    #   finalizers:
+    #     - kubernetes.io/pvc-protection
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Mi #10Gi
+          # storageClassName: ontap-nas
+          # volumeMode: Filesystem
+  deployment:
+    spec:
+      template:
+        spec:
+          volumes:
+          - name: grafana-tls
+            secret:
+              secretName: grafana-tls
+          - name: grafana-proxy
+            secret:
+              secretName: grafana-proxy
+          - name: ocp-injected-certs
+            configMap:
+              name: ocp-injected-certs
+          - name: grafana-data # https://blog.devops.dev/installing-and-configuring-grafana-in-openshift-4-12-f6d725970d65
+            persistentVolumeClaim:
+              claimName: grafana-instance-pvc
+          containers:
+          - args:
+            - '-provider=openshift'
+            - '-pass-basic-auth=false'
+            - '-https-address=:9091'
+            - '-http-address='
+            - '-email-domain=*'
+            - '-upstream=http://localhost:3000'
+            - '-openshift-sar={"resource": "namespaces", "verb": "update"}'
+            - '-openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "update"}}'
+            #- '-openshift-sar={"resource": "namespaces", "verb": "get"}'
+            #- '-openshift-delegate-urls={"/": {"resource": "namespaces", "verb": "get"}}'
+            #- '-openshift-sar={"namespace": "grafana", "resource": "services","verb": "get"}'
+            # Allows access if the user can view the service 'proxy' in namespace 'app-dev'
+            #- -openshift-sar='{"namespace":"grafana","resource":"services","resourceName":"grafana-instance-service","verb":"edit"}'
+            #- -openshift-sar='{"namespace":"grafana","verb":"edit"}'
+            - '-tls-cert=/etc/tls/private/tls.crt'
+            - '-tls-key=/etc/tls/private/tls.key'
+            - '-client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token'
+            - '-cookie-secret-file=/etc/proxy/secrets/session_secret'
+            - '-openshift-service-account=grafana-instance-sa'
+            - '-openshift-ca=/etc/pki/tls/cert.pem'
+            - '-openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'
+            - '-openshift-ca=/etc/proxy/certs/ca-bundle.crt'
+            - '-skip-auth-regex=^/metrics'
+            image: 'quay.io/openshift/origin-oauth-proxy' # https://github.com/openshift/oauth-proxy
+            name: grafana-proxy
+            ports:
+            - containerPort: 9091
+              name: https
+            resources: {}
+            volumeMounts:
+            - mountPath: /etc/tls/private
+              name: grafana-tls
+              readOnly: false
+            - mountPath: /etc/proxy/secrets
+              name: grafana-proxy
+              readOnly: false
+            - mountPath: /etc/proxy/certs
+              name: ocp-injected-certs
+              readOnly: false
+          - name: grafana # https://blog.devops.dev/installing-and-configuring-grafana-in-openshift-4-12-f6d725970d65
+            # https://github.com/grafana/grafana-operator/issues/1225
+            #image: grafana/grafana:latest #grafana/grafana:10.4 #grafana/grafana:9.4.3
+            # securityContext:
+            #   allowPrivilegeEscalation: true
+            #   readOnlyRootFilesystem: false
+            readinessProbe:
+              failureThreshold: 3
+            # resources:
+            #   limits:
+            #     cpu: 2
+            #     memory: 4Gi
+            #   requests:
+            #     cpu: 200m
+            #     memory: 256Mi
+            volumeMounts:
+            - mountPath: /var/lib/grafana #/usr/share/grafana/conf/provisioning
+              name: grafana-data
+              readOnly: false
+            - mountPath: /etc/grafana/provisioning
+              name: grafana-provisioning
+              readOnly: false
+              # env:
+              #   - name: GF_PATHS_PROVISIONING
+              #     value: "/usr/share/grafana/conf/provisioning"
+              #   - name: GF_PATHS_PLUGINS
+              #     value: "/usr/share/grafana/conf/provisioning/plugins"
+  service:
+    metadata:
+      annotations:
+        service.beta.openshift.io/serving-cert-secret-name: grafana-tls
+    spec:
+      ports:
+      - name: https
+        port: 9091
+        protocol: TCP
+        targetPort: https
+  client:
+    preferIngress: false
+  # providers:
+  #   - name: dashboards
+  #     type: file
+  #     updateIntervalSeconds: 30
+  #     options:
+  #       path: /usr/share/grafana/conf/provisioning/dashboards #/etc/dashboards
+  #       foldersFromFilesStructure: true
+  config:
+    #paths:
+    #data = /var/lib/grafana
+    #logs = /var/log/grafana
+    #plugins = /var/lib/grafana/plugins
+    #provisioning = /etc/grafana/provisioning/
+    # data: /var/lib/grafana
+    # logs: /var/log/grafana
+    # plugins: "/usr/share/grafana/conf/plugins"
+    # provisioning: "/usr/share/grafana/conf/provisioning/"
+    #provisioning: /etc/grafana/provisioning/
+    # https://grafana.com/docs/grafana/latest/administration/provisioning/
+    log:
+      mode: "console"
+      level: "debug"
+    auth.anonymous:
+      enabled: "False" #"True"
+    auth:
+      disable_login_form: "False"
+      disable_signout_menu: "False" #"True"
+      #skip_org_role_sync: "True" #  Enabling skip_org_role_sync also disables the synchronization of Grafana Admins from the external provider, as such allow_assign_grafana_admin is ignored.
+    auth.basic:
+      enabled: "True"
+    auth.proxy: # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/auth-proxy/
+      enabled: "True"
+      enable_login_token: "True"
+      header_property: "username"
+      header_name: "X-Forwarded-User"
+    security: # https://grafana.github.io/grafana-operator/docs/examples/credential_config/readme/
+      # https://github.com/grafana/grafana-operator/blob/master/docs/docs/grafana.md
+      # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/
+      #admin_user: user.example@example.com
+      admin_user: admin
+      admin_password: admin
+      admin_email: user.example@example.com
+      cookie_secure: 'true' # Set to true if you host Grafana behind HTTPS. Default is false.
+    users: # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/
+      auto_assign_org_role: Admin # The available options are Viewer (default), Admin, Editor, and None
+      #editors_can_admin: 'true'
+    #default_home_dashboard_path: "/usr/share/grafana/public/dashboards/home.json" # https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/
+    public_dashboards:
+      enabled: 'true'
+      # rbac:
+      #   # https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/
+      #   # https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/assign-rbac-roles/
+      #   apiVersion: '2'
+      #   # Assignments to teams
+---
+# https://grafana.github.io/grafana-operator/docs/examples/dashboard_from_grafana_com/readme/
+# https://grafana.com/docs/grafana-cloud/developer-resources/infrastructure-as-code/grafana-operator/operator-dashboards-folders-datasources/
+# https://github.com/grafana/grafana-operator/blob/master/examples/dashboard_from_grafana_com/resources.yaml
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: grafanadashboard-k8s-overview
+  namespace: grafana-operator
+spec:
+  resyncPeriod: 30s
+  #resyncPeriod: 0m
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana-k8s-overview
+  grafanaCom:
+    id: 18283 #11802 #3870
+  folder: "grafanadashboard-k8s-overview"
+  # datasources:
+  #   - inputName: "DS_PROMETHEUS"
+  #     datasourceName: "Prometheus"  
+  #   - inputName: "DS_ServiceMonitor"
+  #     datasourceName: ""        
+---
+# https://grafana.github.io/grafana-operator/docs/examples/datasource_mapping/readme/
+# https://www.redhat.com/en/blog/thanos-querier-versus-thanos-querier
+# https://cloud.redhat.com/experts/o11y/ocp-grafana/
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus-grafanadatasource
+  namespace: grafana-operator
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana-k8s-overview
+  allowCrossNamespaceImport: true
+  datasource: # https://grafana.com/docs/grafana/latest/datasources/
+    name: prometheus-grafanadatasource
+    type: prometheus # https://grafana.com/docs/grafana/latest/datasources/prometheus/
+    access: proxy
+    url: 'https://thanos-querier.openshift-monitoring.svc.cluster.local:9091'
+    isDefault: true
+    secureJsonData:
+      httpHeaderValue1: 'Bearer ${BEARER_TOKEN}'
+    jsonData:
+      #httpHeaderName1: Authorization
+      tlsAuthWithCACert: true
+      tlsSkipVerify: true
+      timeInterval: 5s
+    editable: true
+---
+# https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: admin-0
+  namespace: grafana-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole #this must be Role or ClusterRole
+  name: admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: user.example@example.com
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: grafana-pvc
+#   namespace: grafana-operator
+#   annotations:
+#     # pv.kubernetes.io/bind-completed: 'yes'
+#     # pv.kubernetes.io/bound-by-controller: 'yes'
+#     volume.beta.kubernetes.io/storage-provisioner: csi.trident.netapp.io
+#     volume.kubernetes.io/storage-provisioner: csi.trident.netapp.io  
+#   finalizers:
+#     - kubernetes.io/pvc-protection
+# spec:
+#   storageClassName: ontap-nas
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 20Mi
+
+# https://docs.openshift.com/container-platform/4.13/monitoring/enabling-monitoring-for-user-defined-projects.html
+# Edit the cluster-monitoring-config ConfigMap object:
+# oc -n openshift-monitoring edit configmap cluster-monitoring-config
+# Add enableUserWorkload: true under data/config.yaml:
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: cluster-monitoring-config
+#   namespace: openshift-monitoring
+# data:
+#   config.yaml: |
+#     enableUserWorkload: true 
+# 
+# Check that the prometheus-operator, prometheus-user-workload and thanos-ruler-user-workload pods are running in the openshift-user-workload-monitoring project. It might take a short while for the pods to start:
+# oc -n openshift-user-workload-monitoring get pod
+
+
+# oc adm policy add-cluster-role-to-user \
+# cluster-monitoring-view -z grafana-instance-sa \
+# clusterrole.rbac.authorization.k8s.io/cluster-monitoring-view
+
+# oc create token grafana-instance-sa --duration=8760h -n grafana
+
+#https://grafana.com/docs/grafana-cloud/developer-resources/infrastructure-as-code/grafana-operator/operator-dashboards-folders-datasources/
+#https://github.com/grafana/grafana-operator
+#https://grafana.com/docs/grafana-cloud/developer-resources/infrastructure-as-code/grafana-operator/manage-dashboards-argocd/
+#logger=provisioning.alerting t=2024-03-27T14:32:31.960305877Z level=error msg="can't read alerting provisioning files from directory" path=/etc/grafana/provisioning/alerting error="open /etc/grafana/provisioning/alerting: no such file or directory"
+---

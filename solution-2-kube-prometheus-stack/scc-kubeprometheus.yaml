@@ -1,0 +1,27 @@
+# https://github.com/openshift/cluster-monitoring-operator/blob/master/assets/node-exporter/security-context-constraints.yaml
+---
+allowHostDirVolumePlugin: true
+allowHostNetwork: true
+allowHostPID: true
+allowHostPorts: true
+allowPrivilegedContainer: true
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  name: kube-prometheus-stack
+  namespace: kubeprometheus
+readOnlyRootFilesystem: false
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+seccompProfiles:
+- runtime/default
+users:
+- system:serviceaccount:kubeprometheus:kube-prometheus-stack-admission
+- system:serviceaccount:kubeprometheus:kube-prometheus-stack-alertmanager
+- system:serviceaccount:kubeprometheus:kube-prometheus-stack-grafana
+- system:serviceaccount:kubeprometheus:kube-prometheus-stack-kube-state-metrics
+- system:serviceaccount:kubeprometheus:kube-prometheus-stack-operator
+- system:serviceaccount:kubeprometheus:kube-prometheus-stack-prometheus
+- system:serviceaccount:kubeprometheus:kube-prometheus-stack-prometheus-node-exporter
