@@ -1,5 +1,15 @@
 # Observabilidad con Grafana en Example
 
+> [!IMPORTANT]
+> **Código Manual / Sin IA**:
+> Todo el código y los manifiestos de este repositorio han sido desarrollados manualmente sin ayuda de IA.
+>
+> **Documentación Original**:
+> Este `README-Spanish.md` es el documento original redactado a mano.
+>
+> **Versiones en Inglés y Recursos IA**:
+> El [README.md](README.md) y [README-English.md](README-English.md) han sido generados/traducidos mediante IA. Los recursos multimedia de NotebookLM también son generados por IA.
+
 ---
 
 ## 📽️ Resúmenes Multimedia de NotebookLM (IA)

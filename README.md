@@ -1,14 +1,14 @@
 # 📊 Master Engineering Documentation: Grafana Observability on OpenShift
 
 > [!IMPORTANT]
-> **Spanish Version / Versión en Español**:
+> **Human-Coded / Sin IA**:
+> All code and manifests in this repository have been developed manually without AI assistance.
+>
+> **Spanish Version (Original) / Versión en Español**:
 > Este repositorio cuenta con una versión original en español redactada manualmente sin el uso de IA: [README-Spanish.md](README-Spanish.md).
 >
-> **English Version (Full Translation)**:
-> A complete English translation of the original manual Spanish documentation is available here: [README-English.md](README-English.md).
->
-> **English Version (Engineering Guide and Deep Dive)**:
-> This current document (`README.md`) is a full engineering guide that synthesizes the high-level architecture with the detailed technical procedures, YAML configurations, and commands from all implementation solutions (Cloud, kube-prometheus-stack, and Operator).
+> **English Documentation (AI-Enhanced)**:
+> This `README.md` (Engineering Guide) and [README-English.md](README-English.md) have been generated and translated using AI, based on the original Spanish documentation. Multimedia resources in the `resources/notebooklm-summaries/` directory were generated using NotebookLM.
 
 ---
 

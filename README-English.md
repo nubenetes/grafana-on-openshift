@@ -1,11 +1,14 @@
 # Observability with Grafana at Example
 
 > [!IMPORTANT]
-> **English Version**:
-> This is a full translation of the original Spanish documentation (`README-Spanish.md`), which was manually written without AI.
+> **Human-Coded / Sin IA**:
+> All code and manifests in this repository have been developed manually without AI assistance.
 >
-> **Spanish Version / Versión en Español**:
-> [README-Spanish.md](README-Spanish.md)
+> **English Version (AI-Generated)**:
+> This is a full translation of the original Spanish documentation (`README-Spanish.md`), generated using AI. Multimedia resources were also generated using NotebookLM.
+>
+> **Spanish Version (Original) / Versión en Español**:
+> [README-Spanish.md](README-Spanish.md) (Redactado manualmente sin IA).
 
 ---
 
