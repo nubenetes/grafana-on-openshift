@@ -51,7 +51,8 @@ For a quick and dynamic overview of this repository's content, you can check the
 - [15. Day 1 and Day 2 Operations Cheat Sheet](#15-day-1-and-day-2-operations-cheat-sheet)
 - [16. Troubleshooting Decision Tree](#16-troubleshooting-decision-tree)
 - [17. Technical Reference and Resources](#17-technical-reference-and-resources)
-- [18. Troubleshooting and FAQ](#18-troubleshooting-and-faq)
+- [18. Technical Infographics: Engineering Blueprints](#18-technical-infographics-engineering-blueprints)
+- [19. Troubleshooting and FAQ](#19-troubleshooting-and-faq)
 
 ---
 
@@ -410,7 +411,27 @@ flowchart TD
 
 ---
 
-## 18. Troubleshooting and FAQ
+## 18. Technical Infographics: Engineering Blueprints
+
+High-resolution visual guides for architecture, deployment patterns, and solution comparison.
+
+<details>
+<summary>Click to view: Technical Infographics</summary>
+
+### 🗺️ Multi-Solution Observability Deployment Guide
+![Deployment Guide](resources/infographics/Grafana_Multi-Solution_Observability_Deployment_Guide.png)
+
+### 🧩 Observability Platform Integration Blueprint
+![Integration Blueprint](resources/infographics/Grafana_Observability_Platform_Integration_Blueprint.png)
+
+### 📊 Observability Solution Comparison Guide
+![Comparison Guide](resources/infographics/Grafana_Observability_Solution_Comparison_Guide.png)
+
+</details>
+
+---
+
+## 19. Troubleshooting and FAQ
 
 ### ❓ Thanos Datasource Error 403 / "Unauthorized"
 **Expert Insight**: This is usually due to an expired Service Account Token. Since OCP 4.11, SA tokens are bounded.
