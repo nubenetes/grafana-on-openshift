@@ -398,7 +398,7 @@ flowchart TD
     Redirect -- Yes --> Secret{Secret Correct?}
     
     Login? -- No --> Datasource?{Thanos Data Error 403?}
-    Datasource? -- Yes --> SAToken[Regenerate SA Token - Section 18]
+    Datasource? -- Yes --> SAToken[Regenerate SA Token - Section 19]
 ```
 </details>
 
