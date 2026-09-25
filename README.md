@@ -24,13 +24,15 @@ This repository includes a comprehensive multi-format educational series synthes
 
 | # | Format | Video / Podcast Title | Category / Domain | Origin Language | Duration | Direct YouTube Link |
 |---|:---:|---|---|:---:|:---:|---|
-| 1 | 🎙️ **Podcast** | [**Grafana on OpenShift Guide**](https://www.youtube.com/watch?v=am5ohrxpzfY) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:48` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=am5ohrxpzfY) |
-| 2 | 📽️ Video Guide | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operators, SSO & Dashboards as Code | 🇺🇸 English *(CC 20+)* | `10:04` | [▶️ Watch Video](https://www.youtube.com/watch?v=EywJm1VdHPk) |
-| 3 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Arquitectura y Comparativa de Soluciones | 🇪🇸 Español *(CC 20+)* | `8:47` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
-| 4 | 📽️ Video Guide | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Telemetry Pipelines & OTel Collector | 🇺🇸 English *(CC 20+)* | `6:52` | [▶️ Watch Video](https://www.youtube.com/watch?v=9DnbcMNafjk) |
-| 5 | 📽️ Video Guide | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Enterprise Observability & Federation | 🇺🇸 English *(CC 20+)* | `8:08` | [▶️ Watch Video](https://www.youtube.com/watch?v=cNzOptMoHvk) |
-| 6 | 📽️ Video Guide | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Seguridad y Hardening (SCC) | 🇪🇸 Español *(CC 20+)* | `7:25` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=sDRG1L3jA40) |
-| 7 | 📽️ Video Guide | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Pipelines de Métricas y Grafana Cloud | 🇪🇸 Español *(CC 20+)* | `5:44` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
+| 1 | 🎙️ **Podcast** | [**Podcast: Grafana Alloy Telemetry Pipelines on OpenShift**](https://www.youtube.com/watch?v=VWO14rXilYk) | Telemetry Pipelines & OTel Masterclass | 🇺🇸 English *(CC)* | `36:02` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=VWO14rXilYk) |
+| 2 | 🎙️ **Podcast** | [**Podcast: Observabilidad en OpenShift con Grafana Alloy**](https://www.youtube.com/watch?v=lHu6K861yDE) | Pipelines OTel y Hardening en OpenShift | 🇪🇸 Español *(CC 20+)* | `15:22` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=lHu6K861yDE) |
+| 3 | 🎙️ **Podcast** | [**Grafana on OpenShift Guide**](https://www.youtube.com/watch?v=am5ohrxpzfY) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:48` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=am5ohrxpzfY) |
+| 4 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Arquitectura y Comparativa de Soluciones | 🇪🇸 Español *(CC 20+)* | `8:47` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
+| 5 | 📽️ Video Guide | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operators, SSO & Dashboards as Code | 🇺🇸 English *(CC 20+)* | `10:04` | [▶️ Watch Video](https://www.youtube.com/watch?v=EywJm1VdHPk) |
+| 6 | 📽️ Video Guide | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Enterprise Observability & Federation | 🇺🇸 English *(CC 20+)* | `8:08` | [▶️ Watch Video](https://www.youtube.com/watch?v=cNzOptMoHvk) |
+| 7 | 📽️ Video Guide | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Seguridad y Hardening (SCC) | 🇪🇸 Español *(CC 20+)* | `7:25` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=sDRG1L3jA40) |
+| 8 | 📽️ Video Guide | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Telemetry Pipelines & OTel Collector | 🇺🇸 English *(CC 20+)* | `6:52` | [▶️ Watch Video](https://www.youtube.com/watch?v=9DnbcMNafjk) |
+| 9 | 📽️ Video Guide | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Pipelines de Métricas y Grafana Cloud | 🇪🇸 Español *(CC 20+)* | `5:44` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
 
 ### ⚡ Topic-Focused Technical Shorts
 
@@ -491,20 +493,38 @@ To maximize your understanding of Grafana on OpenShift, we recommend following t
 
 | # | Format | Video / Podcast Title | Category / Domain | Origin Language | Duration | Direct Link |
 |---|:---:|---|---|:---:|:---:|---|
-| 1 | 🎙️ **Podcast** | [**Grafana on OpenShift Guide**](https://www.youtube.com/watch?v=am5ohrxpzfY) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:48` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=am5ohrxpzfY) |
-| 2 | 📽️ Video Guide | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operators, SSO & Dashboards as Code | 🇺🇸 English *(CC 20+)* | `10:04` | [▶️ Watch Video](https://www.youtube.com/watch?v=EywJm1VdHPk) |
-| 3 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Arquitectura y Comparativa de Soluciones | 🇪🇸 Español *(CC 20+)* | `8:47` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
-| 4 | 📽️ Video Guide | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Telemetry Pipelines & OTel Collector | 🇺🇸 English *(CC 20+)* | `6:52` | [▶️ Watch Video](https://www.youtube.com/watch?v=9DnbcMNafjk) |
-| 5 | 📽️ Video Guide | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Enterprise Observability & Federation | 🇺🇸 English *(CC 20+)* | `8:08` | [▶️ Watch Video](https://www.youtube.com/watch?v=cNzOptMoHvk) |
-| 6 | 📽️ Video Guide | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Seguridad y Hardening (SCC) | 🇪🇸 Español *(CC 20+)* | `7:25` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=sDRG1L3jA40) |
-| 7 | 📽️ Video Guide | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Pipelines de Métricas y Grafana Cloud | 🇪🇸 Español *(CC 20+)* | `5:44` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
+| 1 | 🎙️ **Podcast** | [**Podcast: Grafana Alloy Telemetry Pipelines on OpenShift**](https://www.youtube.com/watch?v=VWO14rXilYk) | Telemetry Pipelines & OTel Masterclass | 🇺🇸 English *(CC)* | `36:02` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=VWO14rXilYk) |
+| 2 | 🎙️ **Podcast** | [**Podcast: Observabilidad en OpenShift con Grafana Alloy**](https://www.youtube.com/watch?v=lHu6K861yDE) | Pipelines OTel y Hardening en OpenShift | 🇪🇸 Español *(CC 20+)* | `15:22` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=lHu6K861yDE) |
+| 3 | 🎙️ **Podcast** | [**Grafana on OpenShift Guide**](https://www.youtube.com/watch?v=am5ohrxpzfY) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:48` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=am5ohrxpzfY) |
+| 4 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Arquitectura y Comparativa de Soluciones | 🇪🇸 Español *(CC 20+)* | `8:47` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
+| 5 | 📽️ Video Guide | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operators, SSO & Dashboards as Code | 🇺🇸 English *(CC 20+)* | `10:04` | [▶️ Watch Video](https://www.youtube.com/watch?v=EywJm1VdHPk) |
+| 6 | 📽️ Video Guide | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Enterprise Observability & Federation | 🇺🇸 English *(CC 20+)* | `8:08` | [▶️ Watch Video](https://www.youtube.com/watch?v=cNzOptMoHvk) |
+| 7 | 📽️ Video Guide | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Seguridad y Hardening (SCC) | 🇪🇸 Español *(CC 20+)* | `7:25` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=sDRG1L3jA40) |
+| 8 | 📽️ Video Guide | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Telemetry Pipelines & OTel Collector | 🇺🇸 English *(CC 20+)* | `6:52` | [▶️ Watch Video](https://www.youtube.com/watch?v=9DnbcMNafjk) |
+| 9 | 📽️ Video Guide | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Pipelines de Métricas y Grafana Cloud | 🇪🇸 Español *(CC 20+)* | `5:44` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
 
 <details open>
 <summary>🔍 <strong>Detailed Breakdown: Full-Length Sessions & Podcasts</strong></summary>
 
 <br/>
 
-##### 1. Grafana on OpenShift Guide
+##### 1. Podcast: Grafana Alloy Telemetry Pipelines on OpenShift
+- 🔗 **Link**: [https://www.youtube.com/watch?v=VWO14rXilYk](https://www.youtube.com/watch?v=VWO14rXilYk)
+- 🎙️ **Format**: 🎙️ Deep Dive Podcast (Conversational NotebookLM Masterclass)
+- 🏷️ **Category**: Telemetry Pipelines & OTel Masterclass
+- 🌐 **Origin Language**: English (Subtitles in 20+ languages)
+- ⏱️ **Duration**: 36:02
+- 📝 **Description**: Exhaustive podcast masterclass exploring telemetry pipelines and observability architectures on Red Hat OpenShift using Grafana Alloy. Deconstructs the shift to declarative OpenTelemetry collection (`metrics.alloy`), scraping kubelet endpoints on port 10250, tailing `/var/log/pods`, eBPF socket monitoring, OpenShift Security Context Constraints (SCCs), and FinOps metric reduction strategies before cloud egress.
+
+##### 2. Podcast: Observabilidad en OpenShift con Grafana Alloy
+- 🔗 **Link**: [https://www.youtube.com/watch?v=lHu6K861yDE](https://www.youtube.com/watch?v=lHu6K861yDE)
+- 🎙️ **Format**: 🎙️ Deep Dive Podcast (Podcast conversacional NotebookLM en Español)
+- 🏷️ **Category**: Pipelines OTel y Hardening en OpenShift
+- 🌐 **Origin Language**: Español (Subtítulos en 20+ idiomas)
+- ⏱️ **Duration**: 15:22
+- 📝 **Description**: Inmersión técnica en formato podcast analizando la modernización de la observabilidad en OpenShift con Grafana Alloy. Explora el paso del antiguo Grafana Agent a la arquitectura de componentes declarativa de Alloy, cómo diseñar Security Context Constraints (SCC) de mínimo privilegio para permitir monitorización de host sin violar políticas del cluster, y optimización de costes en Grafana Cloud mediante filtrado en origen.
+
+##### 3. Grafana on OpenShift Guide
 - 🔗 **Link**: [https://www.youtube.com/watch?v=am5ohrxpzfY](https://www.youtube.com/watch?v=am5ohrxpzfY)
 - 🎙️ **Format**: 🎙️ Deep Dive Podcast (Conversational NotebookLM Masterclass)
 - 🏷️ **Category**: Architecture & Fundamentals
@@ -512,15 +532,7 @@ To maximize your understanding of Grafana on OpenShift, we recommend following t
 - ⏱️ **Duration**: 8:48
 - 📝 **Description**: Comprehensive architectural masterclass comparing three distinct Grafana observability patterns on OpenShift 4.x: Grafana Cloud SaaS with Grafana Alloy, kube-prometheus-stack Helm community deployment, and native Grafana Operator integration via OLM. Details security models, enterprise authentication, and trade-offs.
 
-##### 2. Grafana on OpenShift 2
-- 🔗 **Link**: [https://www.youtube.com/watch?v=EywJm1VdHPk](https://www.youtube.com/watch?v=EywJm1VdHPk)
-- 🎙️ **Format**: 📽️ Technical Video Guide
-- 🏷️ **Category**: Operators, SSO & Dashboards as Code
-- 🌐 **Origin Language**: English (Subtitles in 20+ languages)
-- ⏱️ **Duration**: 10:04
-- 📝 **Description**: Deep dive into Day-2 production operations and automation. Focuses on the native Grafana Operator subscription lifecycle, OAuth proxy sidecar pattern delegating to Azure AD (Entra ID) SSO, declarative provisioning of Dashboards and Datasources via CRDs, and handling bounded ServiceAccount token expirations.
-
-##### 3. Grafana en OpenShift
+##### 4. Grafana en OpenShift
 - 🔗 **Link**: [https://www.youtube.com/watch?v=oD0-JjNWL3k](https://www.youtube.com/watch?v=oD0-JjNWL3k)
 - 🎙️ **Format**: 🎙️ Deep Dive Podcast (Podcast conversacional NotebookLM en Español)
 - 🏷️ **Category**: Arquitectura y Comparativa de Soluciones
@@ -528,15 +540,15 @@ To maximize your understanding of Grafana on OpenShift, we recommend following t
 - ⏱️ **Duration**: 8:47
 - 📝 **Description**: Masterclass técnica completa en español analizando la observabilidad empresarial con Grafana en Red Hat OpenShift. Desglosa los requisitos de plataforma, la comparativa entre Grafana Cloud SaaS, kube-prometheus-stack y el Grafana Operator nativo con OLM, y los retos de seguridad con SCC y autenticación Azure AD.
 
-##### 4. Grafana Alloy on OpenShift
-- 🔗 **Link**: [https://www.youtube.com/watch?v=9DnbcMNafjk](https://www.youtube.com/watch?v=9DnbcMNafjk)
+##### 5. Grafana on OpenShift 2
+- 🔗 **Link**: [https://www.youtube.com/watch?v=EywJm1VdHPk](https://www.youtube.com/watch?v=EywJm1VdHPk)
 - 🎙️ **Format**: 📽️ Technical Video Guide
-- 🏷️ **Category**: Telemetry Pipelines & OTel Collector
+- 🏷️ **Category**: Operators, SSO & Dashboards as Code
 - 🌐 **Origin Language**: English (Subtitles in 20+ languages)
-- ⏱️ **Duration**: 6:52
-- 📝 **Description**: Focused guide on migrating to Grafana Alloy, the OpenTelemetry-native collector replacing legacy Grafana Agent. Covers declarative `metrics.alloy` pipeline syntax, scraping kubelet metrics on secure port 10250, tailing `/var/log/pods`, eBPF socket monitoring, and upstream forwarding to Grafana Cloud.
+- ⏱️ **Duration**: 10:04
+- 📝 **Description**: Deep dive into Day-2 production operations and automation. Focuses on the native Grafana Operator subscription lifecycle, OAuth proxy sidecar pattern delegating to Azure AD (Entra ID) SSO, declarative provisioning of Dashboards and Datasources via CRDs, and handling bounded ServiceAccount token expirations.
 
-##### 5. Grafana on OpenShift
+##### 6. Grafana on OpenShift
 - 🔗 **Link**: [https://www.youtube.com/watch?v=cNzOptMoHvk](https://www.youtube.com/watch?v=cNzOptMoHvk)
 - 🎙️ **Format**: 📽️ Technical Video Guide
 - 🏷️ **Category**: Enterprise Observability & Federation
@@ -544,7 +556,7 @@ To maximize your understanding of Grafana on OpenShift, we recommend following t
 - ⏱️ **Duration**: 8:08
 - 📝 **Description**: Architectural walkthrough exploring multi-cluster observability federation, Thanos query integration, OpenShift User Workload Monitoring (UWM), and deploying enterprise dashboard baselines (`dotdc/grafana-dashboards-kubernetes`) under strict enterprise governance.
 
-##### 6. Grafana en OpenShift SCC
+##### 7. Grafana en OpenShift SCC
 - 🔗 **Link**: [https://www.youtube.com/watch?v=sDRG1L3jA40](https://www.youtube.com/watch?v=sDRG1L3jA40)
 - 🎙️ **Format**: 📽️ Technical Video Guide
 - 🏷️ **Category**: Seguridad y Hardening (SCC)
@@ -552,7 +564,15 @@ To maximize your understanding of Grafana on OpenShift, we recommend following t
 - ⏱️ **Duration**: 7:25
 - 📝 **Description**: Guía técnica de seguridad en OpenShift sobre Security Context Constraints (SCC). Analiza por qué los recolectores como Grafana Alloy fallan bajo el SCC `restricted` predeterminado y detalla el diseño de un SCC personalizado de mínimo privilegio (`allowHostPID`, acceso a `/var/log/pods` y sockets) asociado al ServiceAccount.
 
-##### 7. Grafana Alloy en OpenShift
+##### 8. Grafana Alloy on OpenShift
+- 🔗 **Link**: [https://www.youtube.com/watch?v=9DnbcMNafjk](https://www.youtube.com/watch?v=9DnbcMNafjk)
+- 🎙️ **Format**: 📽️ Technical Video Guide
+- 🏷️ **Category**: Telemetry Pipelines & OTel Collector
+- 🌐 **Origin Language**: English (Subtitles in 20+ languages)
+- ⏱️ **Duration**: 6:52
+- 📝 **Description**: Focused guide on migrating to Grafana Alloy, the OpenTelemetry-native collector replacing legacy Grafana Agent. Covers declarative `metrics.alloy` pipeline syntax, scraping kubelet metrics on secure port 10250, tailing `/var/log/pods`, eBPF socket monitoring, and upstream forwarding to Grafana Cloud.
+
+##### 9. Grafana Alloy en OpenShift
 - 🔗 **Link**: [https://www.youtube.com/watch?v=hTBl9CXzSWQ](https://www.youtube.com/watch?v=hTBl9CXzSWQ)
 - 🎙️ **Format**: 📽️ Technical Video Guide
 - 🏷️ **Category**: Pipelines de Métricas y Grafana Cloud

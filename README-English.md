@@ -24,13 +24,15 @@ This repository includes a comprehensive multi-format educational series synthes
 
 | # | Format | Video / Podcast Title | Category / Domain | Origin Language | Duration | Direct YouTube Link |
 |---|:---:|---|---|:---:|:---:|---|
-| 1 | 🎙️ **Podcast** | [**Grafana on OpenShift Guide**](https://www.youtube.com/watch?v=am5ohrxpzfY) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:48` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=am5ohrxpzfY) |
-| 2 | 📽️ Video Guide | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operators, SSO & Dashboards as Code | 🇺🇸 English *(CC 20+)* | `10:04` | [▶️ Watch Video](https://www.youtube.com/watch?v=EywJm1VdHPk) |
-| 3 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Architecture & Solution Comparison | 🇪🇸 Spanish *(CC 20+)* | `8:47` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
-| 4 | 📽️ Video Guide | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Telemetry Pipelines & OTel Collector | 🇺🇸 English *(CC 20+)* | `6:52` | [▶️ Watch Video](https://www.youtube.com/watch?v=9DnbcMNafjk) |
-| 5 | 📽️ Video Guide | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Enterprise Observability & Federation | 🇺🇸 English *(CC 20+)* | `8:08` | [▶️ Watch Video](https://www.youtube.com/watch?v=cNzOptMoHvk) |
-| 6 | 📽️ Video Guide | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Security & Hardening (SCC) | 🇪🇸 Spanish *(CC 20+)* | `7:25` | [▶️ Watch Video](https://www.youtube.com/watch?v=sDRG1L3jA40) |
-| 7 | 📽️ Video Guide | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Metrics Pipelines & Grafana Cloud | 🇪🇸 Spanish *(CC 20+)* | `5:44` | [▶️ Watch Video](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
+| 1 | 🎙️ **Podcast** | [**Podcast: Grafana Alloy Telemetry Pipelines on OpenShift**](https://www.youtube.com/watch?v=VWO14rXilYk) | Telemetry Pipelines & OTel Masterclass | 🇺🇸 English *(CC)* | `36:02` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=VWO14rXilYk) |
+| 2 | 🎙️ **Podcast** | [**Podcast: Observabilidad en OpenShift con Grafana Alloy**](https://www.youtube.com/watch?v=lHu6K861yDE) | OTel Pipelines & OpenShift Hardening | 🇪🇸 Spanish *(CC 20+)* | `15:22` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=lHu6K861yDE) |
+| 3 | 🎙️ **Podcast** | [**Grafana on OpenShift Guide**](https://www.youtube.com/watch?v=am5ohrxpzfY) | Architecture & Fundamentals | 🇺🇸 English *(CC 20+)* | `8:48` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=am5ohrxpzfY) |
+| 4 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Architecture & Solution Comparison | 🇪🇸 Spanish *(CC 20+)* | `8:47` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
+| 5 | 📽️ Video Guide | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operators, SSO & Dashboards as Code | 🇺🇸 English *(CC 20+)* | `10:04` | [▶️ Watch Video](https://www.youtube.com/watch?v=EywJm1VdHPk) |
+| 6 | 📽️ Video Guide | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Enterprise Observability & Federation | 🇺🇸 English *(CC 20+)* | `8:08` | [▶️ Watch Video](https://www.youtube.com/watch?v=cNzOptMoHvk) |
+| 7 | 📽️ Video Guide | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Security & Hardening (SCC) | 🇪🇸 Spanish *(CC 20+)* | `7:25` | [▶️ Watch Video](https://www.youtube.com/watch?v=sDRG1L3jA40) |
+| 8 | 📽️ Video Guide | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Telemetry Pipelines & OTel Collector | 🇺🇸 English *(CC 20+)* | `6:52` | [▶️ Watch Video](https://www.youtube.com/watch?v=9DnbcMNafjk) |
+| 9 | 📽️ Video Guide | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Metrics Pipelines & Grafana Cloud | 🇪🇸 Spanish *(CC 20+)* | `5:44` | [▶️ Watch Video](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
 
 ### ⚡ Topic-Focused Technical Shorts
 

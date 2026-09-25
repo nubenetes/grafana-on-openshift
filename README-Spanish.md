@@ -24,13 +24,15 @@ Este repositorio cuenta con una serie educativa y técnica multiformato generada
 
 | # | Formato | Título del Recurso | Categoría | Idioma Origen | Duración | Enlace Directo |
 |---|:---:|---|---|:---:|:---:|---|
-| 1 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Arquitectura y Comparativa de Soluciones | 🇪🇸 Español *(CC 20+)* | `8:47` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
-| 2 | 📽️ Guía Vídeo | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Seguridad y Hardening (SCC) | 🇪🇸 Español *(CC 20+)* | `7:25` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=sDRG1L3jA40) |
-| 3 | 📽️ Guía Vídeo | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Pipelines de Métricas y Grafana Cloud | 🇪🇸 Español *(CC 20+)* | `5:44` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
+| 1 | 🎙️ **Podcast** | [**Podcast: Observabilidad en OpenShift con Grafana Alloy**](https://www.youtube.com/watch?v=lHu6K861yDE) | Pipelines OTel y Hardening en OpenShift | 🇪🇸 Español *(CC 20+)* | `15:22` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=lHu6K861yDE) |
+| 2 | 🎙️ **Podcast** | [**Podcast: Grafana Alloy Telemetry Pipelines on OpenShift**](https://www.youtube.com/watch?v=VWO14rXilYk) | Telemetry Pipelines & OTel Masterclass | 🇺🇸 Inglés *(CC)* | `36:02` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=VWO14rXilYk) |
+| 3 | 🎙️ **Podcast** | [**Grafana en OpenShift**](https://www.youtube.com/watch?v=oD0-JjNWL3k) | Arquitectura y Comparativa de Soluciones | 🇪🇸 Español *(CC 20+)* | `8:47` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=oD0-JjNWL3k) |
 | 4 | 🎙️ **Podcast** | [**Grafana on OpenShift Guide**](https://www.youtube.com/watch?v=am5ohrxpzfY) | Arquitectura y Fundamentos | 🇺🇸 Inglés *(CC 20+)* | `8:48` | [▶️ Escuchar Podcast](https://www.youtube.com/watch?v=am5ohrxpzfY) |
-| 5 | 📽️ Guía Vídeo | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operadores, SSO y Dashboards as Code | 🇺🇸 Inglés *(CC 20+)* | `10:04` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=EywJm1VdHPk) |
-| 6 | 📽️ Guía Vídeo | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Recolección OTel y Configuración Alloy | 🇺🇸 Inglés *(CC 20+)* | `6:52` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=9DnbcMNafjk) |
-| 7 | 📽️ Guía Vídeo | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Observabilidad Empresarial y Federación | 🇺🇸 Inglés *(CC 20+)* | `8:08` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=cNzOptMoHvk) |
+| 5 | 📽️ Guía Vídeo | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Seguridad y Hardening (SCC) | 🇪🇸 Español *(CC 20+)* | `7:25` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=sDRG1L3jA40) |
+| 6 | 📽️ Guía Vídeo | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Pipelines de Métricas y Grafana Cloud | 🇪🇸 Español *(CC 20+)* | `5:44` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
+| 7 | 📽️ Guía Vídeo | [**Grafana on OpenShift 2**](https://www.youtube.com/watch?v=EywJm1VdHPk) | Operadores, SSO y Dashboards as Code | 🇺🇸 Inglés *(CC 20+)* | `10:04` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=EywJm1VdHPk) |
+| 8 | 📽️ Guía Vídeo | [**Grafana on OpenShift**](https://www.youtube.com/watch?v=cNzOptMoHvk) | Observabilidad Empresarial y Federación | 🇺🇸 Inglés *(CC 20+)* | `8:08` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=cNzOptMoHvk) |
+| 9 | 📽️ Guía Vídeo | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Recolección OTel y Configuración Alloy | 🇺🇸 Inglés *(CC 20+)* | `6:52` | [▶️ Ver Vídeo](https://www.youtube.com/watch?v=9DnbcMNafjk) |
 
 ### ⚡ Shorts Técnicos (Categorizados por Dominio)
 
