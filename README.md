@@ -92,19 +92,91 @@ This project implements a multi-tenant, high-availability observability stack us
 ---
 
 ## 2. Quick Navigation Map
+
+This repository provides three fully functional observability pathways on OpenShift 4.x, alongside security policies, dashboard templates, and architecture blueprints. Use this navigation map to quickly find the appropriate solution, manifests, and configuration scripts.
+
+### 🗺️ Repository Structure Overview
+
 ```text
-./
-├── solution-3-grafana-operator/      # ⭐️ Recommended Native OpenShift Integration
-│   ├── 1-grafana-operator.yaml         # Operator subscription manifest
-│   ├── 3-grafana.yaml                  # Grafana Instance and OIDC configuration
-│   └── templates/                      # Dashboards and Datasources as Code
-├── solution-1-grafana-cloud/         # SaaS Hybrid strategy (Grafana Alloy)
-│   ├── metrics.alloy                   # Core telemetry pipeline config
-│   └── grafana-cloud.sh                # Automated installer
-└── solution-2-kube-prometheus-stack/ # Complete community stack (Air-gapped friendly)
-    ├── installer-3.sh                  # AzureAD integrated installer
-    └── values-kube-prometheus-stack.yml # Custom Helm values
+grafana-on-openshift/
+├── 📁 solution-3-grafana-operator/      # ⭐️ RECOMMENDED: Cloud-native OpenShift integration (OLM & CRDs)
+│   ├── 📄 1-grafana-operator.yaml         # OLM Subscription & OperatorGroup for Grafana Operator
+│   ├── 📜 2-grafana-oauth.sh              # OpenShift OAuth client & Azure AD federation setup script
+│   ├── 📄 3-grafana.yaml                  # Primary Grafana CR (instance sizing, OAuth proxy sidecar, storage)
+│   ├── 📜 4-grafana-datasource.sh         # Script provisioning 1-year SA token & Thanos datasource
+│   ├── 📁 templates/                      # Dashboards & Datasources as Code (Declarative CRDs)
+│   │   ├── 📄 5-grafana-datasource.yaml   # GrafanaDatasource CR targeting in-cluster Thanos Querier
+│   │   ├── 📄 6-imported-dashboards.yaml  # GrafanaDashboard CR for cluster & namespace infrastructure
+│   │   └── 📄 7-app-dashboards.yaml       # GrafanaDashboard CR for microservice & workload metrics
+│   ├── 📁 tests/                          # Alternative & multi-instance test manifests
+│   │   ├── 📄 grafana2.yaml               # Alternative Grafana CR definition
+│   │   └── 📄 grafana-operator2.yaml      # Alternative Operator subscription
+│   ├── 📘 README.md                       # Comprehensive Grafana Operator deployment & hardening guide
+│   └── 📕 README-Spanish.md               # Guía completa de despliegue del Operator en español
+│
+├── 📁 solution-1-grafana-cloud/         # ☁️ HYBRID SAAS: Telemetry pipelines with Grafana Alloy (OTel-native)
+│   ├── 📄 metrics.alloy                   # Declarative pipeline for kubelet scraping & FinOps metric dropping
+│   ├── 📄 logs.alloy                      # Pipeline for tailing container logs from /var/log/pods
+│   ├── 📄 events.alloy                    # Pipeline for streaming Kubernetes cluster events to Loki
+│   ├── 📄 profiles.alloy                  # Continuous profiling pipeline (Pyroscope / Cloud Profiles)
+│   ├── 📄 scc-grafanacloud.yaml           # Custom SCC granting Alloy allowHostPID & privileged eBPF rights
+│   ├── 📄 scc-grafanacloud2.yaml          # Alternative SCC configuration variant
+│   ├── 📄 values.yaml / values2.yaml      # Helm values for deploying Grafana Alloy DaemonSet on OpenShift
+│   ├── 📄 namespace.yaml                  # Dedicated namespace manifest (grafana-alloy)
+│   ├── 📜 grafana-cloud.sh / *.sh         # Automated installation & verification shell scripts
+│   ├── 📘 README.md                       # Complete guide for configuring Grafana Alloy on OpenShift
+│   └── 📕 README-Spanish.md               # Guía completa de Grafana Alloy en español
+│
+├── 📁 solution-2-kube-prometheus-stack/ # 🔒 AIR-GAPPED / LOCAL: Self-hosted community monitoring stack
+│   ├── 📄 values-kube-prometheus-stack.yml # Comprehensive Helm values for Prometheus, Alertmanager & Grafana
+│   ├── 📄 scc-kubeprometheus.yaml         # Custom SCC for Prometheus node-exporter & storage mounts
+│   ├── 📄 namespace.yaml                  # Dedicated namespace manifest (monitoring)
+│   ├── 📁 installer-1/                    # Baseline community installer & configuration
+│   │   ├── 📜 installer-1.sh              # Phase 1 deployment script
+│   │   └── 📄 values-kube-prometheus-stack.yml # Values file for Phase 1
+│   ├── 📜 installer-2.sh                  # Phase 2 installer script with route and storage configurations
+│   ├── 📜 installer-3.sh                  # Phase 3 installer script with Azure AD OAuth federation
+│   ├── 📁 templates/                      # Ingress & dashboard templates
+│   │   ├── 📄 grafana-ingress.yml         # OpenShift Route / Ingress definition
+│   │   ├── 📄 grafana-dashboards-kubernetes.yaml # Pre-packaged Kubernetes cluster dashboards
+│   │   └── 📄 security-context-constraints.yaml # SCC template
+│   ├── 📄 output.yaml / output-custom.yaml # Rendered Helm manifests for air-gapped / offline deployments
+│   ├── 📘 README.md                       # Self-hosted stack installation and troubleshooting guide
+│   └── 📕 README-Spanish.md               # Guía de la pila autogestionada en español
+│
+├── 📁 resources/infographics/           # 📐 ARCHITECTURE BLUEPRINTS & INFOGRAPHICS
+│   ├── 🖼️ Platform_Observability_Engineering_Blueprint.png # Master engineering blueprint (Pathways, SCC, OAuth)
+│   ├── 🖼️ Grafana_Multi-Solution_Observability_Deployment_Guide.png # Multi-solution deployment flow
+│   ├── 🖼️ Grafana_Observability_Platform_Integration_Blueprint.png # Platform integration architecture
+│   └── 🖼️ Grafana_Observability_Solution_Comparison_Guide.png # Cost, security & operational comparison matrix
+│
+└── 📁 resources/notebooklm-summaries/   # 🎓 MULTIMEDIA DEEP DIVES & PRESENTATIONS
+    ├── 📊 OpenShift_Grafana_Engineering.pdf  # Comprehensive architecture deep-dive deck (PDF)
+    ├── 📊 OpenShift_Grafana_Engineering.pptx # Editable engineering presentation slides (PPTX)
+    ├── 📽️ OpenShift_Grafana_Guide.mp4       # Video walkthrough (English narration)
+    └── 📽️ Grafana_en_OpenShift.mp4           # Video walkthrough (Spanish narration)
 ```
+
+### 🧭 Detailed Component Breakdown & Directory Roles
+
+| Directory / Component | Architectural Role | Key Deliverables & Manifests | Recommended When... |
+| :--- | :--- | :--- | :--- |
+| [**`solution-3-grafana-operator/`**](solution-3-grafana-operator/) | **Native OpenShift Integration (Recommended)** | [`1-grafana-operator.yaml`](solution-3-grafana-operator/1-grafana-operator.yaml)<br/>[`3-grafana.yaml`](solution-3-grafana-operator/3-grafana.yaml)<br/>[`templates/`](solution-3-grafana-operator/templates/) | You want an OLM-managed Grafana instance, native integration with OpenShift's built-in Thanos/Prometheus monitoring stack, Azure AD OAuth with OpenShift OAuth proxy sidecars, and Dashboards/Datasources managed as Code via CRDs. |
+| [**`solution-1-grafana-cloud/`**](solution-1-grafana-cloud/) | **Hybrid SaaS Observability (Grafana Alloy)** | [`metrics.alloy`](solution-1-grafana-cloud/metrics.alloy)<br/>[`logs.alloy`](solution-1-grafana-cloud/logs.alloy)<br/>[`scc-grafanacloud.yaml`](solution-1-grafana-cloud/scc-grafanacloud.yaml) | You leverage Grafana Cloud (SaaS) and need an ultra-modern, OTel-compatible collector (`Grafana Alloy`) running as a DaemonSet to harvest kubelet metrics (port 10250), container logs, and cluster events with source-level FinOps metric filtering. |
+| [**`solution-2-kube-prometheus-stack/`**](solution-2-kube-prometheus-stack/) | **Air-Gapped / Self-Hosted Community Stack** | [`values-kube-prometheus-stack.yml`](solution-2-kube-prometheus-stack/values-kube-prometheus-stack.yml)<br/>[`installer-3.sh`](solution-2-kube-prometheus-stack/installer-3.sh)<br/>[`scc-kubeprometheus.yaml`](solution-2-kube-prometheus-stack/scc-kubeprometheus.yaml) | You operate in strict air-gapped, sovereign, or highly regulated environments where telemetry cannot leave the cluster, and you want an independent Prometheus, Alertmanager, and Grafana stack decoupled from OpenShift platform monitoring. |
+| [**`resources/infographics/`**](resources/infographics/) | **High-Resolution Engineering Blueprints** | [`Platform_Observability_Engineering_Blueprint.png`](resources/infographics/Platform_Observability_Engineering_Blueprint.png)<br/>Deployment & Comparison Guides | You need detailed visual architectures covering identity delegation (Azure AD $\rightarrow$ OAuth proxy), custom SCC privilege requirements (`allowHostPID`), and FinOps telemetry reduction for design reviews and audits. |
+| [**`resources/notebooklm-summaries/`**](resources/notebooklm-summaries/) | **Executive Presentations & Video Guides** | Engineering PDF & PPTX Decks<br/>MP4 Video Walkthroughs | You need ready-to-deliver architectural presentation slides for stakeholders or multimedia walkthroughs summarizing the three deployment pathways. |
+
+### 🚀 Fast-Track Decision Guide: "Which Path Should I Choose?"
+
+- 🟢 **"I want to visualize OpenShift metrics using GitOps and avoid paying for SaaS storage"**  
+  $\rightarrow$ Go straight to [**`solution-3-grafana-operator/`**](solution-3-grafana-operator/). Subscribe to the Grafana Operator, configure OpenShift OAuth/Azure AD, and apply the `GrafanaDatasource` pointing to Thanos Querier.
+- 🟡 **"We use Grafana Cloud and need to collect metrics, logs, and traces from OpenShift"**  
+  $\rightarrow$ Go to [**`solution-1-grafana-cloud/`**](solution-1-grafana-cloud/). Apply the custom SCC (`scc-grafanacloud.yaml`), tune your metric dropping in `metrics.alloy`, and deploy the Alloy DaemonSet via Helm.
+- 🔴 **"We are air-gapped or require a completely independent, self-contained Prometheus/Grafana stack"**  
+  $\rightarrow$ Go to [**`solution-2-kube-prometheus-stack/`**](solution-2-kube-prometheus-stack/). Run `installer-3.sh` or deploy via Helm with `values-kube-prometheus-stack.yml`.
+- 🟣 **"I need architectural diagrams or slides for my platform team"**  
+  $\rightarrow$ Check the [**Technical Infographics**](#18-technical-infographics-engineering-blueprints) in Section 18, visual assets in [**`resources/infographics/`**](resources/infographics/), and executive slide decks in [**`resources/notebooklm-summaries/`**](resources/notebooklm-summaries/).
 
 ---
 
