@@ -445,8 +445,51 @@ flowchart TD
 
 High-resolution visual guides for architecture, deployment patterns, and solution comparison.
 
-<details>
-<summary>Click to view: Technical Infographics</summary>
+<details open>
+<summary>📊 <strong>View Architecture and Deployment Infographics (Click to expand / collapse)</strong></summary>
+
+### 📐 Grafana Observability on OpenShift: Engineering Blueprint
+![Grafana Observability on OpenShift: Engineering Blueprint](resources/infographics/Platform_Observability_Engineering_Blueprint.png)
+
+#### 🔍 Blueprint Architecture & Technical Breakdown:
+- **The Three Observability Pathways**:
+  - **Solution 1: Grafana Cloud (SaaS)**:
+    - **Strategy**: Low-maintenance hybrid cloud model leveraging Grafana Alloy as a lightweight, in-cluster bridge to push logs, metrics, and traces to a fully managed SaaS backend.
+    - **Backend & Target**: Grafana Cloud (Managed). Ideal for SaaS-first engineering teams aiming to offload backend storage, scaling, and cluster maintenance.
+    - **Trade-offs**: Low operational maintenance, pay-per-use consumption cost profile, medium OpenShift integration.
+  - **Solution 3: Grafana Operator (Recommended)**:
+    - **Strategy**: Cloud-native OpenShift integration managed via Operator Lifecycle Manager (OLM). Enables declarative GitOps management using Kubernetes Custom Resource Definitions (CRDs: `Grafana`, `GrafanaDashboard`, `GrafanaDatasource`).
+    - **Backend & Target**: OpenShift in-cluster Prometheus and Thanos stack. Directly queries platform-level metrics with zero duplicate storage footprint.
+    - **Trade-offs**: Medium maintenance (automated operator reconciliation), lowest cost profile (reuses existing platform data), highest degree of OpenShift-native integration.
+  - **Solution 2: Community Chart / kube-prometheus-stack (Self-Managed)**:
+    - **Strategy**: Air-gapped and high-control local stack deployed via standard Helm charts for environments where all data and infrastructure must stay strictly within the cluster boundary.
+    - **Backend & Target**: Self-hosted Prometheus, Thanos, and Loki instances running on dedicated worker nodes.
+    - **Trade-offs**: High maintenance overhead (manual upgrades, storage lifecycle, and scaling), infrastructure-only cost profile, medium OpenShift integration.
+- **Security & Identity Framework**:
+  - **Custom SCC Requirements**:
+    - Grants elevated privileges required for deep telemetry collection: `allowHostPID: true` and `allowPrivilegedContainer: true` for eBPF socket filtering and network diagnostics.
+    - Mounts host paths (`/var/log/pods`) and enables scraping the node kubelet directly on port `10250` for real-time container metrics.
+  - **Azure AD (Entra ID) OAuth Flow**:
+    - **Authentication Chain**: User Access Request $\rightarrow$ Azure AD (Identity Provider) $\rightarrow$ OpenShift OAuth Proxy Sidecar container $\rightarrow$ Injected `X-WEBAUTH-USER` header $\rightarrow$ Grafana instance container.
+    - **Role Mapping & RBAC**: Transparently maps enterprise Azure AD group memberships to internal Grafana RBAC roles (Viewer, Editor, Admin) without exposing raw credentials.
+  - **Unified Tagging Schema**:
+    - **Standardized Discovery Labels**: Enforces uniform service tagging across all workloads using `app.kubernetes.io/name`.
+    - **Telemetry Target Port**: Discovers scraping endpoints automatically using standardized metric port names (`metrics`) via Grafana Alloy discovery rules.
+  - **Token Management (Bypassing 24h Token Expiry)**:
+    - **Problem**: Default OpenShift service account tokens expire after 24 hours in OCP 4.11+, leading to unexpected HTTP `403 Unauthorized` errors when Grafana queries Thanos.
+    - **Solution**: Leverages the Kubernetes `TokenRequest` API to generate long-lived (1-year) bound Service Account tokens (`oc create token grafana-instance-sa --duration=8760h`) for continuous, uninterrupted telemetry datasource access.
+- **Operational Excellence (Day 1 & Day 2)**:
+  - **Day 1 Provisioning & Lifecycle Automation**:
+    - The Grafana Operator continuously reconciles Custom Resources (CRs), automatically provisioning and reconfiguring Grafana StatefulSets, datasources, and dashboard injection configs in response to GitOps commits.
+  - **Day 2 Telemetry Optimization & FinOps**:
+    - **Series Volume Reduction**: Implements strategic metric dropping (e.g., dropping noisy `container_threads` metrics) directly within `metrics.alloy`.
+    - **Label Filtering**: Enforces source-level label filtering and metric aggregation in Grafana Alloy before sending data to Thanos or Grafana Cloud, eliminating unnecessary series churn and controlling storage costs.
+- **Troubleshooting Decision Tree**:
+  - **Missing Metrics**: Check Grafana Alloy container logs and verify that the required custom Security Context Constraints (SCC) have been assigned to the ServiceAccount.
+  - **403 Unauthorized (Thanos)**: Indicates an expired Service Account token; regenerate a fresh 1-year token via `oc create token` and update the Grafana datasource secret.
+  - **Login Failure**: Inspect OpenShift OAuth Proxy sidecar container logs and verify that the Azure App Registration redirect URI matches the public OpenShift Route URL (`https://<route-url>/login/azuread`).
+
+---
 
 ### 🗺️ Multi-Solution Observability Deployment Guide
 ![Deployment Guide](resources/infographics/Grafana_Multi-Solution_Observability_Deployment_Guide.png)
