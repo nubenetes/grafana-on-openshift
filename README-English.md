@@ -38,12 +38,20 @@ This repository includes a comprehensive multi-format educational series synthes
 
 #### 🏛️ Architecture & Enterprise Strategy
 - 🇺🇸 [**Architecting Grafana Observability on OpenShift**](https://www.youtube.com/shorts/ff2Lx2hl6Mg) `(1:07)` — Enterprise observability architecture on OpenShift: SaaS hybrid models vs self-hosted deployments. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**How Unified Tagging Automates Observability**](https://www.youtube.com/shorts/ddmVCE1OcTA) `(1:30)` — How standard Kubernetes labels and named metric ports automate scraper discovery in Alloy. *(Subtitles in 20+ languages)*
 
 #### 🚀 Deployment Strategies & Operators
 - 🇺🇸 [**Three Ways to Deploy Grafana on OpenShift**](https://www.youtube.com/shorts/Vc1eDO4nJog) `(1:26)` — Comparing 3 deployment models: Grafana Cloud + Alloy, kube-prometheus-stack, and Grafana Operator with OAuth proxy. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**How the Grafana Operator Works**](https://www.youtube.com/shorts/Sm6hmy_GEM0) `(1:13)` — Reconciling Grafana, Dashboards, and Datasources declaratively into StatefulSets via CRDs. *(Subtitles in 20+ languages)*
 
-#### 🔒 Security & Platform Hardening
+#### 🔒 Security, Identity & Platform Hardening
 - 🇺🇸 [**Why Grafana Alloy Needs OpenShift SCCs**](https://www.youtube.com/shorts/6Py5FpPc674) `(1:24)` — Why default `restricted` SCC blocks Alloy and how to configure custom SecurityContextConstraints safely. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**How OAuth Proxies Secure Grafana**](https://www.youtube.com/shorts/NUq0oC8Ju2M) `(1:18)` — Delegating SSO to Azure AD (Entra ID) with OpenShift OAuth proxy sidecars and header injection. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**How eBPF Secures Database Traceability**](https://www.youtube.com/shorts/_JWAdO_ggJg) `(1:26)` — Kernel-level socket monitoring and zero-overhead database query visibility in OpenShift. *(Subtitles in 20+ languages)*
+
+#### 💰 Telemetry Pipelines & FinOps Optimization
+- 🇺🇸 [**How Grafana Alloy Filters Cloud Telemetry**](https://www.youtube.com/shorts/cgMivLf8ixg) `(1:15)` — FinOps metric dropping and series filtering in metrics.alloy to slash Grafana Cloud costs. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**How Unified Tags Correlate Observability Data**](https://www.youtube.com/shorts/9ShT5mel4hI) `(1:20)` — Correlating metrics, logs, and traces seamlessly using standard Kubernetes labels. *(Subtitles in 20+ languages)*
 
 ### 📁 Offline Engineering Artifacts
 - 🎙️ **Audio Overview (Spanish):** [Resumen Grafana en OpenShift (MP4)](resources/notebooklm-summaries/Grafana_en_OpenShift.mp4)
