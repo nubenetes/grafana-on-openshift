@@ -33,20 +33,28 @@ This repository includes a comprehensive multi-format educational series synthes
 | 7 | 📽️ Video Guide | [**Grafana en OpenShift  SCC**](https://www.youtube.com/watch?v=sDRG1L3jA40) | Security & Hardening (SCC) | 🇪🇸 Spanish *(CC 20+)* | `7:25` | [▶️ Watch Video](https://www.youtube.com/watch?v=sDRG1L3jA40) |
 | 8 | 📽️ Video Guide | [**Grafana Alloy on OpenShift**](https://www.youtube.com/watch?v=9DnbcMNafjk) | Telemetry Pipelines & OTel Collector | 🇺🇸 English *(CC 20+)* | `6:52` | [▶️ Watch Video](https://www.youtube.com/watch?v=9DnbcMNafjk) |
 | 9 | 📽️ Video Guide | [**Grafana Alloy en OpenShift**](https://www.youtube.com/watch?v=hTBl9CXzSWQ) | Metrics Pipelines & Grafana Cloud | 🇪🇸 Spanish *(CC 20+)* | `5:44` | [▶️ Watch Video](https://www.youtube.com/watch?v=hTBl9CXzSWQ) |
+| 10 | 🎙️ **Podcast** | [**Secure Grafana on OpenShift**](https://www.youtube.com/watch?v=ihuFDasQaYQ) | Hardening, SCC & Zero-Trust SSO | 🇺🇸 English *(CC 20+)* | `8:48` | [▶️ Listen to Podcast](https://www.youtube.com/watch?v=ihuFDasQaYQ) |
+| 11 | 📽️ Video Guide | [**Taming Telemetry Costs**](https://www.youtube.com/watch?v=JYxMni8Y99s) | FinOps & Metric Cardinality Reduction | 🇺🇸 English *(CC 20+)* | `6:08` | [▶️ Watch Video](https://www.youtube.com/watch?v=JYxMni8Y99s) |
+| 12 | 📽️ Video Guide | [**Grafana on OpenShift 3**](https://www.youtube.com/watch?v=5suTmqXoevI) | Operator Lifecycle & CRD Reconciliation | 🇺🇸 English *(CC 20+)* | `7:27` | [▶️ Watch Video](https://www.youtube.com/watch?v=5suTmqXoevI) |
+| 13 | 📽️ Video Guide | [**Grafana on OpenShift 4**](https://www.youtube.com/watch?v=x6w9w6x2jC8) | Thanos Federation & Production Dashboards | 🇺🇸 English *(CC 20+)* | `10:20` | [▶️ Watch Video](https://www.youtube.com/watch?v=x6w9w6x2jC8) |
 
 ### ⚡ Topic-Focused Technical Shorts
 
 #### 🏛️ Architecture & Enterprise Strategy
 - 🇺🇸 [**Architecting Grafana Observability on OpenShift**](https://www.youtube.com/shorts/ff2Lx2hl6Mg) `(1:07)` — Enterprise observability architecture on OpenShift: SaaS hybrid models vs self-hosted deployments. *(Subtitles in 20+ languages)*
 - 🇺🇸 [**How Unified Tagging Automates Observability**](https://www.youtube.com/shorts/ddmVCE1OcTA) `(1:30)` — How standard Kubernetes labels and named metric ports automate scraper discovery in Alloy. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**How Unified Tagging Automates OpenShift Telemetry**](https://www.youtube.com/shorts/Ms5olWWE2GA) `(1:16)` — Standardized labels and named ports automating end-to-end scraper discovery across OpenShift clusters. *(Subtitles in 20+ languages)*
 
 #### 🚀 Deployment Strategies & Operators
 - 🇺🇸 [**Three Ways to Deploy Grafana on OpenShift**](https://www.youtube.com/shorts/Vc1eDO4nJog) `(1:26)` — Comparing 3 deployment models: Grafana Cloud + Alloy, kube-prometheus-stack, and Grafana Operator with OAuth proxy. *(Subtitles in 20+ languages)*
 - 🇺🇸 [**How the Grafana Operator Works**](https://www.youtube.com/shorts/Sm6hmy_GEM0) `(1:13)` — Reconciling Grafana, Dashboards, and Datasources declaratively into StatefulSets via CRDs. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**How the Grafana Operator Enforces State**](https://www.youtube.com/shorts/HYSnxo2FZFA) `(1:24)` — GitOps self-healing: detecting manual UI drift and reverting to declarative CRD state. *(Subtitles in 20+ languages)*
 
 #### 🔒 Security, Identity & Platform Hardening
 - 🇺🇸 [**Why Grafana Alloy Needs OpenShift SCCs**](https://www.youtube.com/shorts/6Py5FpPc674) `(1:24)` — Why default `restricted` SCC blocks Alloy and how to configure custom SecurityContextConstraints safely. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**Why Grafana Alloy Needs OpenShift SCCs 2**](https://www.youtube.com/shorts/YtqJJVcmz7I) `(1:24)` — Part 2 breaking down specific SCC capabilities (allowHostPID, host socket access) required for node telemetry. *(Subtitles in 20+ languages)*
 - 🇺🇸 [**How OAuth Proxies Secure Grafana**](https://www.youtube.com/shorts/NUq0oC8Ju2M) `(1:18)` — Delegating SSO to Azure AD (Entra ID) with OpenShift OAuth proxy sidecars and header injection. *(Subtitles in 20+ languages)*
+- 🇺🇸 [**Fixing Thanos Error 403 in OpenShift**](https://www.youtube.com/shorts/zteSp6EVCS8) `(1:24)` — Resolving bounded ServiceAccount token expirations (24h) when federating Thanos with long-lived TokenRequest tokens. *(Subtitles in 20+ languages)*
 - 🇺🇸 [**How eBPF Secures Database Traceability**](https://www.youtube.com/shorts/_JWAdO_ggJg) `(1:26)` — Kernel-level socket monitoring and zero-overhead database query visibility in OpenShift. *(Subtitles in 20+ languages)*
 
 #### 💰 Telemetry Pipelines & FinOps Optimization
